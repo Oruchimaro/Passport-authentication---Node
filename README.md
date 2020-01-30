@@ -68,16 +68,76 @@
         }
 
     ```
-<!-- 
-    ```JS 
-        const Sequelize = require('sequelize');
 
-        const sequelize = new Sequelize(
-            'database', 
-            'username', 
-            'password', 
-            {
-                host: 'localhost',
-                dialect: 'mysql'
+### Setting Up models and migrations
+    Create aa file under models directory "lead.js"
+
+    Then create a file under migrations folder "year+month+day+hour+min+name"
+
+    then we can populate it with our databse schema and migrate it
+
+    ```JS
+        'use strict';
+        module.exports = {
+
+            up: (queryInterface, Sequelize) => {
+                return queryInterface.createTable('leads',{
+                    id: {
+                        allowNull: false,
+                        primaryKey: true,
+                        type: Sequelize.UUID,
+                        defaultValue: Sequelize.UUIDV4,
+                    },
+                    createdAt: {
+                        allowNull: false,
+                        type: Sequelize.DATE
+                    },
+                    updateAt : {
+                        allowNull: false,
+                        type: Sequelize.DATE
+                    },
+                    email: {
+                        allowNull: false,
+                        type: Sequelize.STRING
+                    },
+                });
+            },
+            down: (queryInterface, Sequelize) => {
+                return queryInterface.dropTable('leads');
+            }
+        };
+
+    ```` 
+
+    $ sequelize db:migrate   or  $ npx sequelize-cli db:migrate
+
+    Now if you check the databse you can see the table Leads is created.
+
+    In models directory create a file "Lead.js"
+
+    then populate it using this code, notice the similarity with migration file.
+
+    ```JS
+        'use strict';
+        module.exports = (sequelize, DataTypes) => {
+
+            var Lead = sequelize.define('Lead', {
+                id: {
+                    type: DataTypes.UUID,
+                    defaultValue: DataTypes.UUIDV4,
+                    allowNull: false,
+                    primaryKey: true
+                },
+                email: {
+                    type: DataTypes.STRING,
+                    allowNull: false
+                },
             });
-    ``` -->
+
+            return Lead;
+        };
+    ```
+
+    Sequelize will use this file for operating on database and sequelize will go to models folder and for each file it will generate the methds for it.
+
+    Now go to bin/www file to initialize sequelize on models.
