@@ -13,4 +13,7 @@ router.get('/lead/:lead_id/edit', landing.show_edit_lead);
 router.post('/lead/:lead_id/edit', landing.edit_lead);
 router.post('/lead/:lead_id/delete', landing.destroy_lead);
 
+
+router.post('/lead/:lead_id/delete-json', landing.destroy_lead_json);
+
 module.exports = router;
