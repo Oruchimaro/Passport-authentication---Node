@@ -54,3 +54,13 @@ exports.show_edit_lead = function(req, res, next){
     res.render('lead/edit_lead', { lead: lead });
   });
 }
+
+exports.destroy_lead = function(req, res, next){
+  return models.Lead.destroy({
+    where: {
+      id: req.params.lead_id
+    }
+  }).then(result => {
+    res.redirect('/leads');
+  });
+}
