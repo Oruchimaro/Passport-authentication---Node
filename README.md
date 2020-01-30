@@ -6,6 +6,7 @@
     cd into the directory
     $ npm install
     $ DEBUG=myapp:* npm start  -> to start the project
+    $ npm start ->run a dev server 
 
 ## Development Docs:
 ### setting up:
