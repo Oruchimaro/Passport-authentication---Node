@@ -3,6 +3,13 @@ var router = express.Router();
 
 /* index controller init*/
 let landing = require('../controllers/landing');
+let user = require('../controllers/user');
+
+/**Login and Register */
+router.get('/login', user.show_login);
+router.get('/signup', user.show_signup);
+router.post('/login', user.login);
+router.post('/signup', user.signup);
 
 /* GET home page. */
 router.get('/', landing.get_landing);
@@ -13,7 +20,7 @@ router.get('/lead/:lead_id/edit', landing.show_edit_lead);
 router.post('/lead/:lead_id/edit', landing.edit_lead);
 router.post('/lead/:lead_id/delete', landing.destroy_lead);
 
-
+/**API Routes */
 router.post('/lead/:lead_id/delete-json', landing.destroy_lead_json);
 
 module.exports = router;

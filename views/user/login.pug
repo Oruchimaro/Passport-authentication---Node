@@ -1,0 +1,29 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Starter MVP")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row
+          .col-sm-12.offset-md-2.col-md-8
+            .jumbotron
+                h2.text-center Log In 
+                .row
+                    .col-sm-12.col-md-12
+                        form(action="/login ", method="POST")
+                            .form-group
+                                label.small.mb-1.mt-3 Email: 
+                                input(type="email", placeholder="Email...", required=true, name="email",value='').form-control
+                                label.small.mb-1.mt-3 Password: 
+                                input(type="password", placeholder="Password...", required=true, name="password",value='').form-control
+                                button.mt-3.btn.btn-primary(type="submit") Log In
+                                p.mt-2.mb-0
+                                    | Forgot Your Password? #[a(href="#") Reset Here]
+                                p.mt-2.mb-0
+                                    | Don't Have an account? #[a(href="/signup") Sign Up Here]
+
+    include ../common/footer.pug
+    +footer()
