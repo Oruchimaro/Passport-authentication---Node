@@ -141,3 +141,9 @@
     Sequelize will use this file for operating on database and sequelize will go to models folder and for each file it will generate the methds for it.
 
     Now go to bin/www file to initialize sequelize on models.
+
+
+### Setting up passport.js authentication
+    $ npm install passport passport-local  --save
+    $ npm install bcrypt validator express-session connect-flash --save
+    
