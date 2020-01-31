@@ -14,7 +14,7 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser(function(id, done) {
-        module.User.findOne({
+        models.User.findOne({
             where: {
                 'id' : id
             }
