@@ -3,20 +3,39 @@ html(lang='en')
   include common/head.pug
   +head("Starter MVP")
   body
-    h1= title
-    p Welcome to #{title}
-    form(action="/", method="POST")
-      input(name="lead_email" type="email", placeholder="Enter your Email ...")
-      button(type="submit", class="btn btn-info btn-sm") Submit
-    
-    if leads 
-      for lead in leads
-        p(id=lead.id)
-          span #{lead.email} 
-          | 
-          a(href="/lead/" + lead.id) Details
-          | 
-          button(onclick=`deleteLead('${lead.id}')`) DeleteAJAX
+    header
+      include common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1.mb-3 Landing Page
+            p.lead.mb-4 This is a test with node 
+            form(action="/", method="POST")
+              .input-group.mb-3
+                input(name="lead_email" type="email", placeholder="Enter your Email ...").form-control
+                .input-group-append
+                  button(type="submit").btn.btn-info Get Started
+        .row.mt-4
+          .col-md-6
+            if leads 
+              h2 Leads
+              table.table.table-dark
+                thead
+                  tr
+                    th(scope="col") Email
+                    th(scope="col") Actions
+                    th(scope="col")
+                  tr
+                tbody
+                  for lead in leads
+                    tr(id=lead.id)
+                      td
+                        span #{lead.email} 
+                      td
+                        a(href="/lead/" + lead.id).btn.btn-primary Details
+                      td
+                        button(onclick=`deleteLead('${lead.id}')`).btn.btn-danger.btn-sm Delete
 
     include common/footer.pug
     +footer()
