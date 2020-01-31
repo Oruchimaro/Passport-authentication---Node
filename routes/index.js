@@ -5,6 +5,9 @@ var router = express.Router();
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
 
+/** Middlewares */
+let { isLoggedIn,isAdmin } = require('../middleware/hasAuth.js');
+
 /**Login and Register */
 router.get('/login', user.show_login);
 router.get('/signup', user.show_signup);
@@ -16,13 +19,13 @@ router.post('/logout', user.logout);
 /* GET home page. */
 router.get('/', landing.get_landing);
 router.post('/', landing.submit_lead);
-router.get('/leads', landing.show_leads);
-router.get('/lead/:lead_id', landing.show_lead);
-router.get('/lead/:lead_id/edit', landing.show_edit_lead);
-router.post('/lead/:lead_id/edit', landing.edit_lead);
-router.post('/lead/:lead_id/delete', landing.destroy_lead);
+router.get('/leads', isLoggedIn, landing.show_leads);
+router.get('/lead/:lead_id', isLoggedIn, landing.show_lead);
+router.get('/lead/:lead_id/edit', isAdmin, landing.show_edit_lead);
+router.post('/lead/:lead_id/edit', isAdmin, landing.edit_lead);
+router.post('/lead/:lead_id/delete', isAdmin, landing.destroy_lead);
 
 /**API Routes */
-router.post('/lead/:lead_id/delete-json', landing.destroy_lead_json);
+router.post('/lead/:lead_id/delete-json', isAdmin, landing.destroy_lead_json);
 
 module.exports = router;
