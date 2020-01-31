@@ -16,9 +16,13 @@ html(lang='en')
                         form(action="/signup", method="POST")
                             .form-group
                                 label.small.mb-1.mt-3 Email: 
-                                input(type="email", placeholder="Email...", required=true, name="email",value='').form-control
+                                input(type="email", placeholder="Email...", required=true, name="email",value=formData.email).form-control
+                                if (errors && errors.email)
+                                  p.small.text-danger #{errors.email}
                                 label.small.mb-1.mt-3 Password: 
                                 input(type="password", placeholder="Password...", required=true, name="password",value='').form-control
+                                if (errors && errors.password)
+                                  p.small.text-danger #{errors.password}
                                 button.mt-3.btn.btn-primary(type="submit") Sign Up
                                 p.mt-2.mb-0
                                     | Already Have an account? #[a(href="/login") Log In Here].
