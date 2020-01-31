@@ -7,6 +7,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// import passportjs and express-session
+let passport = require('passport');
+let session = require('express-session');
+
+/**we want to seprate passport.js setup from app.js file */
+require('./passport_setup')(passport);
+
 var app = express();
 
 // view engine setup
@@ -18,6 +25,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+/**configure app to use passport.js */
+app.use(session({ secret: 'our new secret' }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
